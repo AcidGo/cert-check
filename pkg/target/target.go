@@ -39,9 +39,9 @@ func (t *Target) validate() (error) {
 }
 
 func (t *Target) Check() (check.Results, error) {
-    if f == nil {
+    if t.f == nil {
         return nil, fmt.Errorf("the inner checking func is nil")
     }
 
-    return t.f(t.Mode)
+    return t.f(t.Addr)
 }

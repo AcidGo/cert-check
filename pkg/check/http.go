@@ -25,7 +25,7 @@ func HTTPSCheck(addr string) (Results, error) {
         r := &Result{
             Issuer: cert.Issuer.String(),
             Subject: cert.Subject.String(),
-            ExpireUnixtime: NotAfter.Unix(),
+            ExpireUnixtime: cert.NotAfter.Unix(),
         }
 
         res = append(res, r)

@@ -1,7 +1,10 @@
 package check
 
 import (
+    "fmt"
+    "strconv"
     "strings"
+    "time"
 )
 
 type Result struct {
@@ -25,7 +28,7 @@ func (rs *Results) Verbose() (string) {
 
         sb.WriteString(fmt.Sprintf("issuer: %s\n", r.Issuer))
         sb.WriteString(fmt.Sprintf("subject: %s\n", r.Subject))
-        sb.WriteString(fmt.Sprintf("expire date: %s\n", time.Unix(r.ExpireUnixtime).Format(time.RFC3339)))
+        sb.WriteString(fmt.Sprintf("expire date: %s\n", time.Unix(r.ExpireUnixtime, 0).Format(time.RFC3339)))
     }
 
     return sb.String()
@@ -33,7 +36,7 @@ func (rs *Results) Verbose() (string) {
 
 func (rs *Results) TopOne() (string) {
     const MaxInt64 = int64(^uint(0)>>1)
-    cur = MaxInt64
+    cur := MaxInt64
 
     for _, r := range *rs {
         if r.ExpireUnixtime < cur {
@@ -45,5 +48,5 @@ func (rs *Results) TopOne() (string) {
         return ""
     }
 
-    return strconv.Itoa(cur)
+    return strconv.FormatInt(cur, 10)
 }
