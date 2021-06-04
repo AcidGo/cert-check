@@ -1,1 +1,1 @@
-# zabbix-certificate
+# cert-check
